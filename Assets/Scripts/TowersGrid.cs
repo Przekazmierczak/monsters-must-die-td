@@ -1,15 +1,21 @@
-using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using System.Collections.Generic;
+using System.Collections;
 
 public class TowersGrid : MonoBehaviour
 {
+    public GameObject environment;
+    private PathFinder pf;
+
     public GameObject tower;
     // Vector2 position;
     List<Vector2> positions = new List<Vector2>();
     public GameObject[,] grid = new GameObject[17, 12];
+
+    void Awake()
+    {
+        pf = environment.GetComponent<PathFinder>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,7 +29,7 @@ public class TowersGrid : MonoBehaviour
         positions.Add(new Vector2(10f, -2f));
         positions.Add(new Vector2(11f, -2f));
         positions.Add(new Vector2(12f, -2f));
-        
+
         foreach (Vector2 position in positions)
         {
             AddTower(position);
@@ -41,5 +47,14 @@ public class TowersGrid : MonoBehaviour
         GameObject newTower = Instantiate(tower);
         newTower.transform.position = position;
         grid[(int)position.x, -(int)position.y] = newTower;
+
+        // Start coroutine to update NavMesh next frame - collider not ready
+        StartCoroutine(UpdateNavMeshNextFrame());
     }
+    
+    IEnumerator UpdateNavMeshNextFrame()
+{
+    yield return null; // wait 1 frame for physics update
+    pf.UpdateNavMesh();
+}
 }
