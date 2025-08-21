@@ -43,7 +43,6 @@ public class SquareIndicator : MonoBehaviour
     void SetIndicator(bool ifFloor, Vector2 worldPos)
     {
         SquareIndicat.SetActive(ifFloor);
-        Debug.Log(worldPos);
         SquareIndicat.transform.position = new Vector2(Mathf.Round(worldPos.x), Mathf.Round(worldPos.y));
     }
 }

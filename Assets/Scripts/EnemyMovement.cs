@@ -3,19 +3,24 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     // NavMeshAgent agent;
-    public GameObject environment;
+    private GameObject environment;
     private PathFinder pf;
     private int currentPoint = 0;
-    public float speed = 5f;
 
     void Awake()
     {
+        environment = GameObject.Find("Environment");
         pf = environment.GetComponent<PathFinder>();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Move(float speed)
     {
+        if (currentPoint >= pf.path.corners.Length)
+        {
+            Destroy(gameObject);
+        }
+
         if (currentPoint >= pf.path.corners.Length || pf.path == null) return;
 
         // Move toward current corner

@@ -8,8 +8,6 @@ public class TowersGrid : MonoBehaviour
     private PathFinder pf;
 
     public GameObject tower;
-    // Vector2 position;
-    List<Vector2> positions = new List<Vector2>();
     public GameObject[,] grid = new GameObject[17, 12];
 
     void Awake()
@@ -17,32 +15,7 @@ public class TowersGrid : MonoBehaviour
         pf = environment.GetComponent<PathFinder>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        positions.Add(new Vector2(5f, -1f));
-        positions.Add(new Vector2(6f, -1f));
-        positions.Add(new Vector2(7f, -1f));
-        positions.Add(new Vector2(8f, -1f));
-        positions.Add(new Vector2(9f, -1f));
-        positions.Add(new Vector2(9f, -2f));
-        positions.Add(new Vector2(10f, -2f));
-        positions.Add(new Vector2(11f, -2f));
-        positions.Add(new Vector2(12f, -2f));
-
-        foreach (Vector2 position in positions)
-        {
-            AddTower(position);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void AddTower(Vector2 position)
+    public void AddTower(Vector2 position)
     {
         GameObject newTower = Instantiate(tower);
         newTower.transform.position = position;
@@ -53,8 +26,10 @@ public class TowersGrid : MonoBehaviour
     }
     
     IEnumerator UpdateNavMeshNextFrame()
-{
-    yield return null; // wait 1 frame for physics update
-    pf.UpdateNavMesh();
-}
+    {
+    // Wait a few FixedUpdate frames for the collider to be fully registered
+        for (int i = 0; i < 2; i++) yield return new WaitForFixedUpdate();
+
+        pf.UpdateNavMesh();
+    }
 }
