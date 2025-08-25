@@ -4,8 +4,8 @@ using UnityEngine.AI;
 
 public class PathFinder : MonoBehaviour
 {
-    private Vector3 startPosition = new Vector3(8f, 0f, 0);
-    public Vector3 endPosition = new Vector3(8f, -11f, 0);
+    private Vector3 startPosition = new Vector3(6f, 1f, 0);
+    private Vector3 endPosition = new Vector3(6f, -9f, 0);
     public NavMeshSurface surface;
     public NavMeshPath path;
 
