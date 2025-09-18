@@ -55,9 +55,4 @@ public class Tower : MonoBehaviour
             enemiesInRange.Remove(enemy);
         }
     }
-
-    private void OnMouseDown()
-    {
-        GameManager.Instance.MarkObject(gameObject);
-    }
 }
