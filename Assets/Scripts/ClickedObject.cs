@@ -2,36 +2,24 @@ using UnityEngine;
 
 public class ClickedObject : MonoBehaviour
 {
-    private GameObject highlightObj;
+
+    public Material outline;
+    public Material spriteLitDefault;
+    Renderer rend;
+
+    void Start()
+    {
+        rend = GetComponent<Renderer>();
+    }
 
     public void Highlight()
     {
-        if (highlightObj != null) return; // already highlighted
-
-        // Create a child object
-        highlightObj = new GameObject("Highlight");
-        highlightObj.transform.SetParent(transform, false);
-        highlightObj.transform.localPosition = Vector3.zero;
-
-        // Copy sprite renderer
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        SpriteRenderer highlightSR = highlightObj.AddComponent<SpriteRenderer>();
-        highlightSR.sprite = sr.sprite;
-        highlightSR.color = Color.red;
-
-        // Make it slightly bigger and behind
-        highlightObj.transform.localScale = new Vector3(1.1f, 1.1f, 1f);
-        highlightSR.sortingOrder = sr.sortingOrder - 1;
+        rend.material = outline;
     }
 
     public void RemoveHighlight()
     {
-        if (highlightObj != null)
-        {
-            Destroy(highlightObj);
-            highlightObj = null;
-            Debug.Log("test");
-        }
+        rend.material = spriteLitDefault;
     }
 
     public void OnClick()

@@ -29,6 +29,5 @@ public class GameManager : MonoBehaviour
     public void MarkObject(GameObject obj)
     {
         currentMarked = obj;
-        Debug.Log("Marked: " + obj.name);
     }
 }
