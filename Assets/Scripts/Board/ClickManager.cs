@@ -13,7 +13,6 @@ public class ClickManager : MonoBehaviour
 
             if (hit.collider != null)
             {
-                Debug.Log("Clicked on: " + hit.collider.name);
                 ClickedObject clicked = hit.collider.GetComponent<ClickedObject>();
                 
                 if (clicked != null)

@@ -27,7 +27,6 @@ public class DropTower : MonoBehaviour, IDropHandler
 
         if (hit == floorCollider)
         {
-            Debug.Log("Dropped on world object: " + hit.name);
             tg.AddTower(new Vector2(Mathf.Round(worldPos.x), Mathf.Round(worldPos.y)));
         }
     }

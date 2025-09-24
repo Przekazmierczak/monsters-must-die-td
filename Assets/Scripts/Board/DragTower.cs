@@ -6,17 +6,18 @@ public class DragTower : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 {
     // [SerializeField] private Canvas canvas;
     public GameObject TowerIndicator;
+    private SquareIndicator squareIndicator;
+    public GameObject SquareIndicat;
 
-    // private RectTransform rectTransform;
-
-    // private void Awake()
-    // {
-    //     rectTransform = GetComponent<RectTransform>();
-    // }
+    void Start()
+    {
+        squareIndicator = GetComponent<SquareIndicator>();
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         TowerIndicator.SetActive(true);
+        squareIndicator.enabled = true;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -28,10 +29,7 @@ public class DragTower : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
     public void OnEndDrag(PointerEventData eventData)
     {
         TowerIndicator.SetActive(false);
+        SquareIndicat.SetActive(false);
+        squareIndicator.enabled = false;
     }
-
-    // public void OnPointerDown(PointerEventData eventData)
-    // {
-    //     Debug.Log("Clicked");
-    // }
 }

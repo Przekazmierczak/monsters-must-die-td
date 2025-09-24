@@ -4,13 +4,14 @@ using UnityEngine.InputSystem;
 
 public class SquareIndicator : MonoBehaviour
 {
+    public GameObject floor;
     Collider2D floorCollider;
     public GameObject SquareIndicat;
     private Vector2 lastMousePos;
 
     void Start()
     {
-        floorCollider = GetComponent<Collider2D>();
+        floorCollider = floor.GetComponent<Collider2D>();
         lastMousePos = Mouse.current.position.ReadValue();
     }
 
