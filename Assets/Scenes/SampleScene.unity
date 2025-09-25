@@ -12516,6 +12516,7 @@ GameObject:
   - component: {fileID: 773084956}
   - component: {fileID: 773084960}
   - component: {fileID: 773084961}
+  - component: {fileID: 773084962}
   m_Layer: 5
   m_Name: CreateTower
   m_TagString: Untagged
@@ -12593,6 +12594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerIndicator: {fileID: 833873516}
+  SquareIndicat: {fileID: 1110834124}
 --- !u!114 &773084961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12605,6 +12607,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00e24ef70f901940b91e10fb7e04e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &773084962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773084954}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeed8b3c77e2b52468097fa62f0ba062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floor: {fileID: 1122942788}
+  SquareIndicat: {fileID: 1110834124}
 --- !u!1 &833873516
 GameObject:
   m_ObjectHideFlags: 0
@@ -25006,7 +25022,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1122942789}
   - component: {fileID: 1122942790}
-  - component: {fileID: 1122942791}
   - component: {fileID: 1122942793}
   m_Layer: 3
   m_Name: Floor
@@ -25085,19 +25100,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1122942791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122942788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeed8b3c77e2b52468097fa62f0ba062, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SquareIndicat: {fileID: 1110834124}
 --- !u!61 &1122942793
 BoxCollider2D:
   m_ObjectHideFlags: 0
