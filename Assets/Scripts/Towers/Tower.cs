@@ -1,15 +1,31 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using Unity.VisualScripting;
 
 public class Tower : MonoBehaviour
 {
-    public float fireRate = 1f;
+    public float attackSpeed = 1f;
     public float damage = 5;
+    public float range;
+    public bool ifMultiShot = false;
+    public int multiShot = 1;
+    public bool ifArea = false;
+    public float area = 1;
+    public bool ifChain = false;
+    public int chain = 0;
+
     public GameObject projectilePrefab;
     // public Transform firePoint;
 
     private float fireCountdown = 0f;
     private List<Enemy> enemiesInRange = new List<Enemy>();
+
+    void Start()
+    {
+        CircleCollider2D circleCollider = GetComponent<CircleCollider2D>();
+        range = circleCollider.radius;
+    }
 
     void Update()
     {
@@ -21,8 +37,18 @@ public class Tower : MonoBehaviour
             fireCountdown -= Time.deltaTime;
             if (fireCountdown <= 0f)
             {
-                Shoot(enemiesInRange[0]); // shoot first enemy
-                fireCountdown = 1f / fireRate;
+                if (ifMultiShot == false)
+                {
+                    Shoot(enemiesInRange[0]); // shoot first enemy
+                }
+                else
+                {
+                    for (int i = 0; i < Math.Min(multiShot, enemiesInRange.Count); i++)
+                    {
+                        Shoot(enemiesInRange[i]); // shoot first enemy
+                    }
+                }
+                fireCountdown = 1f / attackSpeed;
             }
         }
     }
