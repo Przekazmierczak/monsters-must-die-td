@@ -8,11 +8,8 @@ public class Tower : MonoBehaviour
     public float attackSpeed = 1f;
     public float damage = 5;
     public float range;
-    public bool ifMultiShot = false;
     public int multiShot = 1;
-    public bool ifArea = false;
-    public float area = 1;
-    public bool ifChain = false;
+    public float area = 0;
     public int chain = 0;
 
     public GameObject projectilePrefab;
@@ -37,16 +34,9 @@ public class Tower : MonoBehaviour
             fireCountdown -= Time.deltaTime;
             if (fireCountdown <= 0f)
             {
-                if (ifMultiShot == false)
+                for (int i = 0; i < Math.Min(multiShot, enemiesInRange.Count); i++)
                 {
-                    Shoot(enemiesInRange[0]); // shoot first enemy
-                }
-                else
-                {
-                    for (int i = 0; i < Math.Min(multiShot, enemiesInRange.Count); i++)
-                    {
-                        Shoot(enemiesInRange[i]); // shoot first enemy
-                    }
+                    Shoot(enemiesInRange[i]);
                 }
                 fireCountdown = 1f / attackSpeed;
             }
@@ -57,9 +47,10 @@ public class Tower : MonoBehaviour
     {
         GameObject projectileGO = Instantiate(projectilePrefab, transform.position, transform.rotation);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
+        List<Collider2D> hitEnemies = new List<Collider2D> {target.GetComponent<Collider2D>()};
         if (projectile != null)
         {
-            projectile.Seek(target, damage);
+            projectile.Seek(target, projectilePrefab, damage, area, chain, hitEnemies);
         }
     }
 

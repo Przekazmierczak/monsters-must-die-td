@@ -233,11 +233,8 @@ MonoBehaviour:
   attackSpeed: 1
   damage: 5
   range: 0
-  ifMultiShot: 1
-  multiShot: 4
-  ifArea: 0
-  area: 1
-  ifChain: 0
+  multiShot: 1
+  area: 0
   chain: 0
   projectilePrefab: {fileID: 1012959917410591485, guid: 6a8bddffa0fe7d043b203345d206ebbc, type: 3}
 --- !u!1001 &7606654940632966098

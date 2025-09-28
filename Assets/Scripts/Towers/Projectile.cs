@@ -1,17 +1,26 @@
 using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     private Enemy target;
+    public GameObject prefab;
     public float speed = 10f;
     public float destroyDistance = 0.2f;
     public float damage;
+    public float area;
+    public int chain;
+    List<Collider2D> hitEnemies;
 
-    public void Seek(Enemy trackTarget, float projectileDamage)
+    public void Seek(Enemy trackTarget, GameObject projectilePrefab, float projectileDamage, float projectileArea, int projectileChain, List<Collider2D> projectileHitEnemies)
     {
         target = trackTarget;
+        prefab = projectilePrefab;
         damage = projectileDamage;
+        area = projectileArea;
+        chain = projectileChain;
+        hitEnemies = projectileHitEnemies;
     }
 
     void Update()
@@ -29,8 +38,56 @@ public class Projectile : MonoBehaviour
         // Check if close enough to "hit"
         if (Vector3.Distance(transform.position, target.transform.position) < destroyDistance)
         {
-            target.TakeDamage(damage);
-            Destroy(gameObject);
+            int enemyLayer = LayerMask.GetMask("Enemy");
+            if (chain > 0)
+            {
+                GameObject projectileGO = Instantiate(prefab, transform.position, transform.rotation);
+                Projectile projectile = projectileGO.GetComponent<Projectile>();
+
+                Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 5, enemyLayer);
+
+                Enemy newTarget = null;
+                float minDistance = Mathf.Infinity;
+
+                foreach (var currHit in hits)
+                {
+                    if (hitEnemies.Contains(currHit)) continue;
+
+                    Enemy currTarget = currHit.GetComponent<Enemy>();
+                    if (currTarget == null) continue;
+
+                    float dist = Vector2.Distance(transform.position, currHit.transform.position);
+                    if (dist < minDistance)
+                    {
+                        minDistance = dist;
+                        newTarget = currTarget;
+                    }
+                }
+                if (newTarget != null)
+                {
+                    hitEnemies.Add(newTarget.GetComponent<Collider2D>());
+                    projectile.Seek(newTarget, prefab, damage, area, chain - 1, hitEnemies);
+                }
+            }
+            if (area == 0)
+            {
+                target.TakeDamage(damage);
+                Destroy(gameObject);
+                return;
+            }
+            else
+            {
+                Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, area, enemyLayer);
+
+                foreach (var currHit in hits)
+                {
+                    Enemy currTarget = currHit.GetComponent<Enemy>();
+                    currTarget.TakeDamage(damage);
+                }
+                Destroy(gameObject);
+                return;
+            }
+            
         }
 
         // Rotate if moving

@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 7592082504796571459}
   - component: {fileID: 4292191779074935696}
   - component: {fileID: 1242233515815411766}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,8 +220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5edc346733b46c84da8ec34b691f6740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  maxHealth: 30
+  health: 50
+  maxHealth: 50
   speed: 1
 --- !u!58 &4292191779074935696
 CircleCollider2D:
