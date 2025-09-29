@@ -12470,6 +12470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247f592ec87caf843b9aba37f267dd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 1961063778}
+  damagePopupPrefab: {fileID: 3159116850836076183, guid: af2c425d0d395974b920158131ae4c8f, type: 3}
   level: 1
   gold: 10
   currentMarked: {fileID: 0}

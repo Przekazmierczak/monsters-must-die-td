@@ -3,11 +3,13 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class Enemy : MonoBehaviour
 {
+    public GameObject damagePopupPrefab;
+    public Canvas canvas;
+
     public float health = 10;
     public float maxHealth = 10;
     public float speed = 2f;
     EnemyMovement movement;
-
 
     void Awake()
     {
@@ -17,6 +19,8 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        GameManager.Instance.ShowDamage(transform.position, damage);
+
         health -= damage;
         if (health <= 0)
         {

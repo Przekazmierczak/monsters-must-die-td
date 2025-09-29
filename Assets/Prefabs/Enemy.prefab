@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5edc346733b46c84da8ec34b691f6740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePopupPrefab: {fileID: 3159116850836076183, guid: af2c425d0d395974b920158131ae4c8f, type: 3}
   health: 50
   maxHealth: 50
   speed: 1
