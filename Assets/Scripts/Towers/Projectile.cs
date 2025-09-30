@@ -12,8 +12,10 @@ public class Projectile : MonoBehaviour
     public float area;
     public int chain;
     List<Collider2D> hitEnemies;
+    List<ProjectileStatus> projectileStatuses;
 
-    public void Seek(Enemy trackTarget, GameObject projectilePrefab, float projectileDamage, float projectileArea, int projectileChain, List<Collider2D> projectileHitEnemies)
+
+    public void Seek(Enemy trackTarget, GameObject projectilePrefab, float projectileDamage, float projectileArea, int projectileChain, List<Collider2D> projectileHitEnemies, List<ProjectileStatus> projectileProjectileStatuses)
     {
         target = trackTarget;
         prefab = projectilePrefab;
@@ -21,6 +23,7 @@ public class Projectile : MonoBehaviour
         area = projectileArea;
         chain = projectileChain;
         hitEnemies = projectileHitEnemies;
+        projectileStatuses = projectileProjectileStatuses;
     }
 
     void Update()
@@ -66,12 +69,18 @@ public class Projectile : MonoBehaviour
                 if (newTarget != null)
                 {
                     hitEnemies.Add(newTarget.GetComponent<Collider2D>());
-                    projectile.Seek(newTarget, prefab, damage, area, chain - 1, hitEnemies);
+                    projectile.Seek(newTarget, prefab, damage, area, chain - 1, hitEnemies, projectileStatuses);
                 }
             }
             if (area == 0)
             {
                 target.TakeDamage(damage);
+                Debug.Log(projectileStatuses.Count);
+                foreach (var status in projectileStatuses)
+                {
+                    status.Hit(target);
+                }
+
                 Destroy(gameObject);
                 return;
             }
@@ -83,6 +92,11 @@ public class Projectile : MonoBehaviour
                 {
                     Enemy currTarget = currHit.GetComponent<Enemy>();
                     currTarget.TakeDamage(damage);
+
+                    foreach (var status in projectileStatuses)
+                    {
+                        status.Hit(currTarget);
+                    }
                 }
                 Destroy(gameObject);
                 return;

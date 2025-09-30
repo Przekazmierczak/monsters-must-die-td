@@ -11,6 +11,8 @@ public class Tower : MonoBehaviour
     public int multiShot = 1;
     public float area = 0;
     public int chain = 0;
+    public float stunChance = 0f;
+    public float stunDuration = 0f;
 
     public GameObject projectilePrefab;
     // public Transform firePoint;
@@ -48,9 +50,24 @@ public class Tower : MonoBehaviour
         GameObject projectileGO = Instantiate(projectilePrefab, transform.position, transform.rotation);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         List<Collider2D> hitEnemies = new List<Collider2D> {target.GetComponent<Collider2D>()};
+        
+        List<ProjectileStatus> statuses = new List<ProjectileStatus>();
+
+        if (stunChance != 0 && stunDuration != 0)
+        {
+            Stun stun = new Stun();
+            stun.duration = stunDuration;
+
+            ProjectileStatus projectileStatus = new ProjectileStatus();
+            projectileStatus.status = stun;
+            projectileStatus.chance = stunChance;
+
+            statuses.Add(projectileStatus);
+        }
+
         if (projectile != null)
         {
-            projectile.Seek(target, projectilePrefab, damage, area, chain, hitEnemies);
+            projectile.Seek(target, projectilePrefab, damage, area, chain, hitEnemies, statuses);
         }
     }
 
