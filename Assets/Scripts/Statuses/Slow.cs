@@ -1,5 +1,6 @@
-public class Stun : Status
+public class Slow : Status
 {
+    public float slowPower;
     public void Initialize(float statusDuration)
     {
         duration = statusDuration;
@@ -8,12 +9,11 @@ public class Stun : Status
     public override void Apply(float statusEnd, Enemy statusTarget)
     {
         base.Apply(statusEnd, statusTarget);
-        target.statuses.Add(this);
-        target.currentSpeed = 0f;
+        target.slows.Insert(this, slowPower);
     }
 
     public override void Remove()
     {
-        target.currentSpeed = target.baseSpeed;
+        // recalculate speed
     }
 }

@@ -75,7 +75,6 @@ public class Projectile : MonoBehaviour
             if (area == 0)
             {
                 target.TakeDamage(damage);
-                Debug.Log(projectileStatuses.Count);
                 foreach (var status in projectileStatuses)
                 {
                     status.Hit(target);

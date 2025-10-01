@@ -7,7 +7,11 @@ public class ProjectileStatus
 
     public void Hit(Enemy target)
     {
-        if (UnityEngine.Random.Range(0f, 1f) <= chance)
+        if (chance == 1)
+        {
+            status.Apply(Time.time + status.duration, target);
+        }
+        else if (UnityEngine.Random.Range(0f, 1f) <= chance)
         {
             status.Apply(Time.time + status.duration, target);
         }

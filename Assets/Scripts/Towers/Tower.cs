@@ -13,6 +13,8 @@ public class Tower : MonoBehaviour
     public int chain = 0;
     public float stunChance = 0f;
     public float stunDuration = 0f;
+    public float slowPower = 0f;
+    public float slowDuration = 0f;
 
     public GameObject projectilePrefab;
     // public Transform firePoint;
@@ -50,7 +52,7 @@ public class Tower : MonoBehaviour
         GameObject projectileGO = Instantiate(projectilePrefab, transform.position, transform.rotation);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         List<Collider2D> hitEnemies = new List<Collider2D> {target.GetComponent<Collider2D>()};
-        
+
         List<ProjectileStatus> statuses = new List<ProjectileStatus>();
 
         if (stunChance != 0 && stunDuration != 0)
@@ -61,6 +63,19 @@ public class Tower : MonoBehaviour
             ProjectileStatus projectileStatus = new ProjectileStatus();
             projectileStatus.status = stun;
             projectileStatus.chance = stunChance;
+
+            statuses.Add(projectileStatus);
+        }
+
+        if (slowPower != 0 && slowDuration != 0)
+        {
+            Slow slow = new Slow();
+            slow.duration = slowDuration;
+            slow.slowPower = slowPower;
+
+            ProjectileStatus projectileStatus = new ProjectileStatus();
+            projectileStatus.status = slow;
+            projectileStatus.chance = 1f;
 
             statuses.Add(projectileStatus);
         }

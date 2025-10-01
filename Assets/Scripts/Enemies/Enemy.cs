@@ -14,12 +14,14 @@ public class Enemy : MonoBehaviour
     EnemyMovement movement;
     // public float stunTime;
     public List<Status> statuses;
+    public MaxHeap<Slow> slows;
 
     void Awake()
     {
         movement = GetComponent<EnemyMovement>();
         movement.Move(baseSpeed);
         statuses = new List<Status>();
+        slows = new MaxHeap<Slow>();
     }
 
     public void TakeDamage(float damage)
@@ -46,6 +48,23 @@ public class Enemy : MonoBehaviour
             {
                 statuses[i].Remove();
                 statuses.RemoveAt(i);
+            }
+        }
+
+        if (slows.Count > 0)
+        {
+            while (slows.Count > 0 && slows.PeekMax().end < Time.time)
+            {
+                slows.ExtractMax();
+            }
+
+            if (slows.Count > 0)
+            {
+                currentSpeed = baseSpeed - baseSpeed * slows.PeekPriority();
+            }
+            else
+            {
+                currentSpeed = baseSpeed;
             }
         }
         movement.Move(currentSpeed);
