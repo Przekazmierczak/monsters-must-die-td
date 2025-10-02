@@ -15,6 +15,8 @@ public class Tower : MonoBehaviour
     public float stunDuration = 0f;
     public float slowPower = 0f;
     public float slowDuration = 0f;
+    public float poisonPower = 0f;
+    public float poisonDuration = 0f;
 
     public GameObject projectilePrefab;
     // public Transform firePoint;
@@ -71,10 +73,23 @@ public class Tower : MonoBehaviour
         {
             Slow slow = new Slow();
             slow.duration = slowDuration;
-            slow.slowPower = slowPower;
+            slow.power = slowPower;
 
             ProjectileStatus projectileStatus = new ProjectileStatus();
             projectileStatus.status = slow;
+            projectileStatus.chance = 1f;
+
+            statuses.Add(projectileStatus);
+        }
+
+        if (poisonPower != 0 && poisonDuration != 0)
+        {
+            Poison poison = new Poison();
+            poison.duration = poisonDuration;
+            poison.power = poisonPower;
+
+            ProjectileStatus projectileStatus = new ProjectileStatus();
+            projectileStatus.status = poison;
             projectileStatus.chance = 1f;
 
             statuses.Add(projectileStatus);

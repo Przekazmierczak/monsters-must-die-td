@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     // public float stunTime;
     public List<Status> statuses;
     public MaxHeap<Slow> slows;
+    public MaxHeap<Poison> poisons;
+    public float poisonCumulation = 0f;
 
     void Awake()
     {
@@ -22,6 +24,7 @@ public class Enemy : MonoBehaviour
         movement.Move(baseSpeed);
         statuses = new List<Status>();
         slows = new MaxHeap<Slow>();
+        poisons = new MaxHeap<Poison>();
     }
 
     public void TakeDamage(float damage)
@@ -33,6 +36,19 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
+    }
+    public void TakePoisonDamage()
+    {
+        health -= poisonCumulation * Time.deltaTime;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void ShowPoisonDamage()
+    {
+        GameManager.Instance.ShowDamage(transform.position, poisonCumulation, new Color(0.6f, 0f, 0.6f, 1f));
     }
 
     void Die()
@@ -68,5 +84,17 @@ public class Enemy : MonoBehaviour
             }
         }
         movement.Move(currentSpeed);
+
+        while (poisons.Count > 0 && poisons.PeekMax().end < Time.time)
+        {
+            Poison currentPoison = poisons.ExtractMax();
+            poisonCumulation -= currentPoison.power;
+        }
+
+        if (poisons.Count > 0)
+        {
+            if (GameManager.Instance.showPoisonDamage == true) { ShowPoisonDamage(); };
+            TakePoisonDamage();
+        }
     }
 }

@@ -1,4 +1,6 @@
-public class Slow : Status
+using UnityEngine;
+
+public class Poison : Status
 {
     public float power;
     public void Initialize(float statusDuration)
@@ -9,7 +11,8 @@ public class Slow : Status
     public override void Apply(float statusEnd, Enemy statusTarget)
     {
         base.Apply(statusEnd, statusTarget);
-        target.slows.Insert(this, power);
+        target.poisons.Insert(this, Time.time + duration);
+        target.poisonCumulation += power;
     }
 
     public override void Remove()

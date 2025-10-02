@@ -74,7 +74,7 @@ public class Projectile : MonoBehaviour
             }
             if (area == 0)
             {
-                target.TakeDamage(damage);
+                if (damage > 0) { target.TakeDamage(damage); }
                 foreach (var status in projectileStatuses)
                 {
                     status.Hit(target);
@@ -90,7 +90,7 @@ public class Projectile : MonoBehaviour
                 foreach (var currHit in hits)
                 {
                     Enemy currTarget = currHit.GetComponent<Enemy>();
-                    currTarget.TakeDamage(damage);
+                    if (damage > 0) { currTarget.TakeDamage(damage); }
 
                     foreach (var status in projectileStatuses)
                     {

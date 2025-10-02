@@ -18,6 +18,13 @@ public class DamagePopup : MonoBehaviour
         textColor = textMesh.color;
         timer = lifetime;
     }
+    public void Setup(float damage, Color newTextColor)
+    {
+        textMesh.text = damage.ToString();
+        textColor = newTextColor;
+        textMesh.color = textColor;
+        timer = lifetime;
+    }
 
     void Update()
     {

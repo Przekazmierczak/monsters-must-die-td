@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     // Global marked object
     public GameObject currentMarked;
 
+    public bool showPoisonDamage = false;
+    private float showPoisonDamageTimer = 0f;
+
     void Awake()
     {
         // Make sure only one GameManager exists
@@ -35,8 +38,28 @@ public class GameManager : MonoBehaviour
 
     public void ShowDamage(Vector3 worldPosition, float damage)
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition + Vector3.up * 0.1f + Vector3.right * 1f + new Vector3(Random.Range(-0.1f,0.1f),0,0));
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition + Vector3.up * 0.1f + Vector3.right * 1f + new Vector3(Random.Range(-0.1f, 0.1f), 0, 0));
         GameObject popup = Instantiate(damagePopupPrefab, screenPos, Quaternion.identity, canvas.transform);
         popup.GetComponent<DamagePopup>().Setup(damage);
+    }
+    public void ShowDamage(Vector3 worldPosition, float damage, Color color)
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition + Vector3.up * 0.1f + Vector3.right * 1f + new Vector3(Random.Range(-0.1f, 0.1f), 0, 0));
+        GameObject popup = Instantiate(damagePopupPrefab, screenPos, Quaternion.identity, canvas.transform);
+        popup.GetComponent<DamagePopup>().Setup(damage, color);
+    }
+
+    void Update()
+    {
+        showPoisonDamageTimer += Time.deltaTime;
+        if (showPoisonDamageTimer >= 0.5f)
+        {
+            showPoisonDamage = true;
+            showPoisonDamageTimer = 0f;
+        }
+        else
+        {
+            showPoisonDamage = false;
+        }
     }
 }
