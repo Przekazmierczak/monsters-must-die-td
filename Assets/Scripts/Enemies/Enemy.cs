@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     public MaxHeap<Slow> slows;
     public MaxHeap<Poison> poisons;
     public float poisonCumulation = 0f;
+    public float gustEnd = 0f;
+    bool collide = false;
 
     void Awake()
     {
@@ -83,7 +85,22 @@ public class Enemy : MonoBehaviour
                 currentSpeed = baseSpeed;
             }
         }
-        movement.Move(currentSpeed);
+
+        if (Time.time < gustEnd)
+        {
+            if (collide == false)
+            {
+                movement.Move(-1f);
+            }
+            else
+            {
+                gustEnd = Time.time;
+            }
+        }
+        else
+        {
+            movement.Move(currentSpeed);
+        }
 
         while (poisons.Count > 0 && poisons.PeekMax().end < Time.time)
         {
@@ -95,6 +112,22 @@ public class Enemy : MonoBehaviour
         {
             if (GameManager.Instance.showPoisonDamage == true) { ShowPoisonDamage(); };
             TakePoisonDamage();
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("PushCollider"))
+        {
+            collide = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("PushCollider"))
+        {
+            collide = false;
         }
     }
 }

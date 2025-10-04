@@ -17,6 +17,8 @@ public class Tower : MonoBehaviour
     public float slowDuration = 0f;
     public float poisonPower = 0f;
     public float poisonDuration = 0f;
+    public float gustChance = 0f;
+    public float gustDuration = 0f;
 
     public GameObject projectilePrefab;
     // public Transform firePoint;
@@ -91,6 +93,18 @@ public class Tower : MonoBehaviour
             ProjectileStatus projectileStatus = new ProjectileStatus();
             projectileStatus.status = poison;
             projectileStatus.chance = 1f;
+
+            statuses.Add(projectileStatus);
+        }
+
+        if (gustChance != 0 && gustDuration != 0)
+        {
+            Gust gust = new Gust();
+            gust.duration = gustDuration;
+
+            ProjectileStatus projectileStatus = new ProjectileStatus();
+            projectileStatus.status = gust;
+            projectileStatus.chance = gustChance;
 
             statuses.Add(projectileStatus);
         }
