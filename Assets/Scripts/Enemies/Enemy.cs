@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     public float poisonCumulation = 0f;
     public float gustEnd = 0f;
     bool collide = false;
+    public float burningPower = 0f;
+    public float burningEnd = 0f;
 
     void Awake()
     {
@@ -39,6 +41,7 @@ public class Enemy : MonoBehaviour
             Die();
         }
     }
+
     public void TakePoisonDamage()
     {
         health -= poisonCumulation * Time.deltaTime;
@@ -51,6 +54,20 @@ public class Enemy : MonoBehaviour
     public void ShowPoisonDamage()
     {
         GameManager.Instance.ShowDamage(transform.position, poisonCumulation, new Color(0.6f, 0f, 0.6f, 1f));
+    }
+    
+    public void TakeBurningDamage()
+    {
+        health -= burningPower;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void ShowBurningDamage()
+    {
+        GameManager.Instance.ShowDamage(transform.position, burningPower, new Color(1f, 0.3f, 0f, 1f));
     }
 
     void Die()
@@ -71,7 +88,7 @@ public class Enemy : MonoBehaviour
 
         if (slows.Count > 0)
         {
-            while (slows.Count > 0 && slows.PeekMax().end < Time.time)
+            while (slows.Count > 0 && slows.PeekMax().end <= Time.time)
             {
                 slows.ExtractMax();
             }
@@ -102,7 +119,7 @@ public class Enemy : MonoBehaviour
             movement.Move(currentSpeed);
         }
 
-        while (poisons.Count > 0 && poisons.PeekMax().end < Time.time)
+        while (poisons.Count > 0 && poisons.PeekMax().end <= Time.time)
         {
             Poison currentPoison = poisons.ExtractMax();
             poisonCumulation -= currentPoison.power;
@@ -110,8 +127,15 @@ public class Enemy : MonoBehaviour
 
         if (poisons.Count > 0)
         {
-            if (GameManager.Instance.showPoisonDamage == true) { ShowPoisonDamage(); };
+            if (GameManager.Instance.showPoisonDamage == true) { ShowPoisonDamage(); }
+            ;
             TakePoisonDamage();
+        }
+
+        if (burningPower > 0f && Time.time <= burningEnd && GameManager.Instance.dealShowBurningDamage == true)
+        {
+            TakeBurningDamage();
+            ShowBurningDamage();
         }
     }
     

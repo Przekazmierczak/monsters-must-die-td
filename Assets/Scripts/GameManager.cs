@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public bool showPoisonDamage = false;
     private float showPoisonDamageTimer = 0f;
+    public bool dealShowBurningDamage = false;
+    private float dealShowBurningDamageTimer = 0f;
 
     void Awake()
     {
@@ -60,6 +62,17 @@ public class GameManager : MonoBehaviour
         else
         {
             showPoisonDamage = false;
+        }
+
+        dealShowBurningDamageTimer += Time.deltaTime;
+        if (dealShowBurningDamageTimer >= 1f)
+        {
+            dealShowBurningDamage = true;
+            dealShowBurningDamageTimer = 0f;
+        }
+        else
+        {
+            dealShowBurningDamage = false;
         }
     }
 }
