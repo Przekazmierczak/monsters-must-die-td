@@ -1,16 +1,33 @@
 using UnityEngine;
 
-public class ChillFreez : MonoBehaviour
+public class ChillFreeze : Status
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float power;
+    public float freezDuration = 0f;
+    public void Initialize(float statusDuration)
     {
-        
+        duration = statusDuration;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Apply(float statusEnd, Enemy statusTarget)
     {
-        
+        base.Apply(statusEnd, statusTarget);
+        if (Time.time > target.frozen)
+        {
+            target.chills.Insert(this, Time.time + duration);
+            target.chillCumulation += power;
+
+            if (target.chillCumulation >= 0.5 * target.maxHealth)
+            {
+                target.frozen = Time.time + freezDuration;
+                target.chills = new MaxHeap<ChillFreeze>();
+                target.chillCumulation = 0f;
+            }
+        }
+    }
+
+    public override void Remove()
+    {
+        // recalculate speed
     }
 }

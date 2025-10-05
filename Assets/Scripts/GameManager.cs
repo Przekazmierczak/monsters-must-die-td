@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public bool dealShowBurningDamage = false;
     private float dealShowBurningDamageTimer = 0f;
 
+    public float maxChillPotency = 0.3f;
+
     void Awake()
     {
         // Make sure only one GameManager exists

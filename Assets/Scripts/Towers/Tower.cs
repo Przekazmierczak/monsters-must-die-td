@@ -21,6 +21,9 @@ public class Tower : MonoBehaviour
     public float gustDuration = 0f;
     public float burningPower = 0f;
     public float burningDuration = 0f;
+    public bool frost = false;
+    public float frostDuration = 0f;
+    public float freezDuration = 0f;
 
     public GameObject projectilePrefab;
     // public Transform firePoint;
@@ -119,6 +122,20 @@ public class Tower : MonoBehaviour
 
             ProjectileStatus projectileStatus = new ProjectileStatus();
             projectileStatus.status = burning;
+            projectileStatus.chance = 1f;
+
+            statuses.Add(projectileStatus);
+        }
+
+        if (frost == true)
+        {
+            ChillFreeze chillFreeze = new ChillFreeze();
+            chillFreeze.power = damage;
+            chillFreeze.duration = frostDuration;
+            chillFreeze.freezDuration = freezDuration;
+
+            ProjectileStatus projectileStatus = new ProjectileStatus();
+            projectileStatus.status = chillFreeze;
             projectileStatus.chance = 1f;
 
             statuses.Add(projectileStatus);

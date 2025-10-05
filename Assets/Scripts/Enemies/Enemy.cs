@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
@@ -14,13 +15,19 @@ public class Enemy : MonoBehaviour
     EnemyMovement movement;
     // public float stunTime;
     public List<Status> statuses;
+    public float stun = 0f;
     public MaxHeap<Slow> slows;
+    public float slow = 0f;
     public MaxHeap<Poison> poisons;
     public float poisonCumulation = 0f;
     public float gustEnd = 0f;
     bool collide = false;
     public float burningPower = 0f;
     public float burningEnd = 0f;
+    public MaxHeap<ChillFreeze> chills;
+    public float chillCumulation = 0f;
+    float chillSlow = 0f;
+    public float frozen = 0f;
 
     void Awake()
     {
@@ -29,6 +36,7 @@ public class Enemy : MonoBehaviour
         statuses = new List<Status>();
         slows = new MaxHeap<Slow>();
         poisons = new MaxHeap<Poison>();
+        chills = new MaxHeap<ChillFreeze>();
     }
 
     public void TakeDamage(float damage)
@@ -95,12 +103,27 @@ public class Enemy : MonoBehaviour
 
             if (slows.Count > 0)
             {
-                currentSpeed = baseSpeed - baseSpeed * slows.PeekPriority();
+                slow = slows.PeekPriority();
             }
             else
             {
-                currentSpeed = baseSpeed;
+                slow = 0f;
             }
+        }
+
+        while (chills.Count > 0 && chills.PeekMax().end <= Time.time)
+        {
+            ChillFreeze currentChill = chills.ExtractMax();
+            chillCumulation -= currentChill.power;
+        }
+
+        if (chills.Count > 0)
+        {
+            chillSlow = Math.Max(chillCumulation / (maxHealth * 0.3f), 1) * GameManager.Instance.maxChillPotency;
+        }
+        else
+        {
+            chillSlow = 0f;
         }
 
         if (Time.time < gustEnd)
@@ -114,8 +137,15 @@ public class Enemy : MonoBehaviour
                 gustEnd = Time.time;
             }
         }
+        else if (Time.time < frozen || Time.time < stun)
+        {
+            movement.Move(0f);
+        }
         else
         {
+            currentSpeed = baseSpeed;
+            currentSpeed -= currentSpeed * slow;
+            currentSpeed -= currentSpeed * chillSlow;
             movement.Move(currentSpeed);
         }
 
