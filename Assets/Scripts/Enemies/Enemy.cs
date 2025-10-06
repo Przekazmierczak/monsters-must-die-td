@@ -13,8 +13,6 @@ public class Enemy : MonoBehaviour
     public float baseSpeed = 2f;
     public float currentSpeed = 2f;
     EnemyMovement movement;
-    // public float stunTime;
-    public List<Status> statuses;
     public float stun = 0f;
     public MaxHeap<Slow> slows;
     public float slow = 0f;
@@ -33,7 +31,6 @@ public class Enemy : MonoBehaviour
     {
         movement = GetComponent<EnemyMovement>();
         movement.Move(baseSpeed);
-        statuses = new List<Status>();
         slows = new MaxHeap<Slow>();
         poisons = new MaxHeap<Poison>();
         chills = new MaxHeap<ChillFreeze>();
@@ -85,15 +82,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        for (int i = statuses.Count - 1; i >= 0; i--)
-        {
-            if (Time.time >= statuses[i].end)
-            {
-                statuses[i].Remove();
-                statuses.RemoveAt(i);
-            }
-        }
-
         if (slows.Count > 0)
         {
             while (slows.Count > 0 && slows.PeekMax().end <= Time.time)

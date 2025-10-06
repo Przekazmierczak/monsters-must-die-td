@@ -13,8 +13,4 @@ public class Gust : Status
         base.Apply(statusEnd, statusTarget);
         target.gustEnd = Math.Max(target.gustEnd, statusEnd);
     }
-
-    public override void Remove()
-    {
-    }
 }

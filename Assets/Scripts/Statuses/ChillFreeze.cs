@@ -4,9 +4,12 @@ public class ChillFreeze : Status
 {
     public float power;
     public float freezDuration = 0f;
-    public void Initialize(float statusDuration)
+    
+    public void Initialize(float statusDuration, float statusPower, float statusFreezDuration)
     {
         duration = statusDuration;
+        power = statusPower;
+        freezDuration = statusFreezDuration;
     }
 
     public override void Apply(float statusEnd, Enemy statusTarget)
@@ -24,10 +27,5 @@ public class ChillFreeze : Status
                 target.chillCumulation = 0f;
             }
         }
-    }
-
-    public override void Remove()
-    {
-        // recalculate speed
     }
 }

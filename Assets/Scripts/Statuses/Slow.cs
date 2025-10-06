@@ -1,19 +1,16 @@
 public class Slow : Status
 {
     public float power;
-    public void Initialize(float statusDuration)
+    
+    public void Initialize(float statusDuration, float statusPower)
     {
         duration = statusDuration;
+        power = statusPower;
     }
 
     public override void Apply(float statusEnd, Enemy statusTarget)
     {
         base.Apply(statusEnd, statusTarget);
         target.slows.Insert(this, power);
-    }
-
-    public override void Remove()
-    {
-        // recalculate speed
     }
 }

@@ -67,11 +67,10 @@ public class Tower : MonoBehaviour
         if (stunChance != 0 && stunDuration != 0)
         {
             Stun stun = new Stun();
-            stun.duration = stunDuration;
+            stun.Initialize(stunDuration);
 
             ProjectileStatus projectileStatus = new ProjectileStatus();
-            projectileStatus.status = stun;
-            projectileStatus.chance = stunChance;
+            projectileStatus.Initialize(stun, stunChance);
 
             statuses.Add(projectileStatus);
         }
@@ -79,12 +78,10 @@ public class Tower : MonoBehaviour
         if (slowPower != 0 && slowDuration != 0)
         {
             Slow slow = new Slow();
-            slow.duration = slowDuration;
-            slow.power = slowPower;
+            slow.Initialize(slowDuration, slowPower);
 
             ProjectileStatus projectileStatus = new ProjectileStatus();
-            projectileStatus.status = slow;
-            projectileStatus.chance = 1f;
+            projectileStatus.Initialize(slow, 1f);
 
             statuses.Add(projectileStatus);
         }
@@ -92,12 +89,10 @@ public class Tower : MonoBehaviour
         if (poisonPower != 0 && poisonDuration != 0)
         {
             Poison poison = new Poison();
-            poison.duration = poisonDuration;
-            poison.power = poisonPower;
+            poison.Initialize(poisonDuration, poisonPower);
 
             ProjectileStatus projectileStatus = new ProjectileStatus();
-            projectileStatus.status = poison;
-            projectileStatus.chance = 1f;
+            projectileStatus.Initialize(poison, 1f);
 
             statuses.Add(projectileStatus);
         }
@@ -105,11 +100,10 @@ public class Tower : MonoBehaviour
         if (gustChance != 0 && gustDuration != 0)
         {
             Gust gust = new Gust();
-            gust.duration = gustDuration;
+            gust.Initialize(gustDuration);
 
             ProjectileStatus projectileStatus = new ProjectileStatus();
-            projectileStatus.status = gust;
-            projectileStatus.chance = gustChance;
+            projectileStatus.Initialize(gust, gustChance);
 
             statuses.Add(projectileStatus);
         }
@@ -117,12 +111,10 @@ public class Tower : MonoBehaviour
         if (burningPower != 0f && burningDuration != 0f)
         {
             Burning burning = new Burning();
-            burning.power = burningPower * damage;
-            burning.duration = burningDuration;
+            burning.Initialize(burningDuration, burningPower * damage);
 
             ProjectileStatus projectileStatus = new ProjectileStatus();
-            projectileStatus.status = burning;
-            projectileStatus.chance = 1f;
+            projectileStatus.Initialize(burning, 1f);
 
             statuses.Add(projectileStatus);
         }
@@ -130,13 +122,10 @@ public class Tower : MonoBehaviour
         if (frost == true)
         {
             ChillFreeze chillFreeze = new ChillFreeze();
-            chillFreeze.power = damage;
-            chillFreeze.duration = frostDuration;
-            chillFreeze.freezDuration = freezDuration;
+            chillFreeze.Initialize(frostDuration, damage, freezDuration);
 
             ProjectileStatus projectileStatus = new ProjectileStatus();
-            projectileStatus.status = chillFreeze;
-            projectileStatus.chance = 1f;
+            projectileStatus.Initialize(chillFreeze, 1f);
 
             statuses.Add(projectileStatus);
         }

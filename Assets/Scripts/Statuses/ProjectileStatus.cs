@@ -5,6 +5,12 @@ public class ProjectileStatus
     public Status status;
     public float chance;
 
+    public void Initialize(Status projectileStatus, float projectileStatusChance)
+    {
+        status = projectileStatus;
+        chance = projectileStatusChance;
+    }
+
     public void Hit(Enemy target)
     {
         if (chance == 1)

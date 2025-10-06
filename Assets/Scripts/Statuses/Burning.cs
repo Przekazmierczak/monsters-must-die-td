@@ -3,9 +3,11 @@ using UnityEngine;
 public class Burning : Status
 {
     public float power;
-    public void Initialize(float statusDuration)
+    
+    public void Initialize(float statusDuration, float statusPower)
     {
         duration = statusDuration;
+        power = statusPower;
     }
 
     public override void Apply(float statusEnd, Enemy statusTarget)
@@ -16,10 +18,5 @@ public class Burning : Status
             target.burningPower = power;
             target.burningEnd = Time.time + duration;
         }
-    }
-
-    public override void Remove()
-    {
-        // recalculate speed
     }
 }

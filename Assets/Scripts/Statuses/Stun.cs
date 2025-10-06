@@ -16,9 +16,4 @@ public class Stun : Status
             target.stun = Time.time + duration;
         }
     }
-
-    public override void Remove()
-    {
-        target.currentSpeed = target.baseSpeed;
-    }
 }
