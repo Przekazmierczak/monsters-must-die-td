@@ -4,7 +4,7 @@ public class ChillFreeze : Status
 {
     public float power;
     public float freezDuration = 0f;
-    
+
     public void Initialize(float statusDuration, float statusPower, float statusFreezDuration)
     {
         duration = statusDuration;
@@ -17,14 +17,14 @@ public class ChillFreeze : Status
         base.Apply(statusEnd, statusTarget);
         if (Time.time > target.frozen)
         {
-            target.chills.Insert(this, Time.time + duration);
-            target.chillCumulation += power;
+            target.chillSlowManager.chills.Insert(this, Time.time + duration);
+            target.chillSlowManager.chillCumulation += power;
 
-            if (target.chillCumulation >= 0.5 * target.maxHealth)
+            if (target.chillSlowManager.chillCumulation >= 0.5 * target.maxHealth)
             {
                 target.frozen = Time.time + freezDuration;
-                target.chills = new MaxHeap<ChillFreeze>();
-                target.chillCumulation = 0f;
+                target.chillSlowManager.chills = new MaxHeap<ChillFreeze>();
+                target.chillSlowManager.chillCumulation = 0f;
             }
         }
     }

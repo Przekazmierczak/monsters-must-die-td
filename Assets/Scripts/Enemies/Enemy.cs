@@ -14,26 +14,32 @@ public class Enemy : MonoBehaviour
     public float currentSpeed = 2f;
     EnemyMovement movement;
     public float stun = 0f;
-    public MaxHeap<Slow> slows;
-    public float slow = 0f;
     public MaxHeap<Poison> poisons;
     public float poisonCumulation = 0f;
     public float gustEnd = 0f;
     bool collide = false;
     public float burningPower = 0f;
     public float burningEnd = 0f;
-    public MaxHeap<ChillFreeze> chills;
-    public float chillCumulation = 0f;
-    float chillSlow = 0f;
+
     public float frozen = 0f;
+
+    public List<SlowManagers> slowManagers;
+
+    public AttackSlowManager attackSlowManager;
+    public ChillSlowManager chillSlowManager;
 
     void Awake()
     {
         movement = GetComponent<EnemyMovement>();
         movement.Move(baseSpeed);
-        slows = new MaxHeap<Slow>();
         poisons = new MaxHeap<Poison>();
-        chills = new MaxHeap<ChillFreeze>();
+
+        slowManagers = new List<SlowManagers>();
+        attackSlowManager = new AttackSlowManager();
+        chillSlowManager = new ChillSlowManager();
+        chillSlowManager.chillThreshold = maxHealth * 0.3f;
+        slowManagers.Add(attackSlowManager);
+        slowManagers.Add(chillSlowManager);
     }
 
     public void TakeDamage(float damage)
@@ -75,6 +81,15 @@ public class Enemy : MonoBehaviour
         GameManager.Instance.ShowDamage(transform.position, burningPower, new Color(1f, 0.3f, 0f, 1f));
     }
 
+    public void UpdateMovementSpeed()
+    {
+        currentSpeed = baseSpeed;
+        foreach (var slowManager in slowManagers)
+        {
+            currentSpeed -= currentSpeed * slowManager.finalSlow;
+        }
+    }
+
     void Die()
     {
         Destroy(gameObject);
@@ -82,38 +97,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (slows.Count > 0)
-        {
-            while (slows.Count > 0 && slows.PeekMax().end <= Time.time)
-            {
-                slows.ExtractMax();
-            }
-
-            if (slows.Count > 0)
-            {
-                slow = slows.PeekPriority();
-            }
-            else
-            {
-                slow = 0f;
-            }
-        }
-
-        while (chills.Count > 0 && chills.PeekMax().end <= Time.time)
-        {
-            ChillFreeze currentChill = chills.ExtractMax();
-            chillCumulation -= currentChill.power;
-        }
-
-        if (chills.Count > 0)
-        {
-            chillSlow = Math.Max(chillCumulation / (maxHealth * 0.3f), 1) * GameManager.Instance.maxChillPotency;
-        }
-        else
-        {
-            chillSlow = 0f;
-        }
-
         if (Time.time < gustEnd)
         {
             if (collide == false)
@@ -131,9 +114,11 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            currentSpeed = baseSpeed;
-            currentSpeed -= currentSpeed * slow;
-            currentSpeed -= currentSpeed * chillSlow;
+            if (attackSlowManager.Update() == true ||
+                chillSlowManager.Update() == true)
+            {
+                UpdateMovementSpeed();
+            }
             movement.Move(currentSpeed);
         }
 
