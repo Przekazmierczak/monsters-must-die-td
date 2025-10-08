@@ -11,7 +11,7 @@ public class Poison : Status
     public override void Apply(float statusEnd, Enemy statusTarget)
     {
         base.Apply(statusEnd, statusTarget);
-        target.poisons.Insert(this, -statusEnd);
-        target.poisonCumulation += power;
+        target.enemyStatuses.poisons.Insert(this, -statusEnd);
+        target.enemyStatuses.poisonCumulation += power;
     }
 }

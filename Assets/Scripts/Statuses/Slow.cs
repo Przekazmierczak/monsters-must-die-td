@@ -11,6 +11,6 @@ public class Slow : Status
     public override void Apply(float statusEnd, Enemy statusTarget)
     {
         base.Apply(statusEnd, statusTarget);
-        target.attackSlowManager.slows.Insert(this, power);
+        target.enemyStatuses.attackSlowManager.slows.Insert(this, power);
     }
 }

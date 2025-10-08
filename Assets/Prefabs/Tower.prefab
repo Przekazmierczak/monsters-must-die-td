@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7942768958672902730}
   - component: {fileID: 6619066496840425041}
   - component: {fileID: 8017907042044226150}
+  - component: {fileID: 5958074267455320459}
   m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
@@ -115,6 +116,20 @@ MonoBehaviour:
   multiShot: 1
   area: 0
   chain: 0
+  projectilePrefab: {fileID: 1012959917410591485, guid: 6a8bddffa0fe7d043b203345d206ebbc, type: 3}
+  towerStatuses: {fileID: 0}
+--- !u!114 &5958074267455320459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2743986709583608018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811a7703697781a4d8d2fafbb94fab73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   stunChance: 0
   stunDuration: 0
   slowPower: 0
@@ -123,7 +138,11 @@ MonoBehaviour:
   poisonDuration: 0
   gustChance: 0
   gustDuration: 0
-  projectilePrefab: {fileID: 1012959917410591485, guid: 6a8bddffa0fe7d043b203345d206ebbc, type: 3}
+  burningPower: 0
+  burningDuration: 0
+  frost: 0
+  frostDuration: 0
+  freezDuration: 0
 --- !u!1 &4488356382303253831
 GameObject:
   m_ObjectHideFlags: 0

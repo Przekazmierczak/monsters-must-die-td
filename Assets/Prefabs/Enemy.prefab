@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 7592082504796571459}
   - component: {fileID: 4292191779074935696}
   - component: {fileID: 1242233515815411766}
+  - component: {fileID: 8666293427476677664}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -226,8 +227,7 @@ MonoBehaviour:
   maxHealth: 5000
   baseSpeed: 2
   currentSpeed: 2
-  poisonCumulation: 0
-  gustEnd: 0
+  enemyStatuses: {fileID: 0}
 --- !u!58 &4292191779074935696
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -291,6 +291,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8666293427476677664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965130398724819327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e3f35d3a75a544db412eb163c608ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stun: 0
+  poisonCumulation: 0
+  gustEnd: 0
+  burningPower: 0
+  burningEnd: 0
+  frozen: 0
 --- !u!1 &6248340760755780833
 GameObject:
   m_ObjectHideFlags: 0

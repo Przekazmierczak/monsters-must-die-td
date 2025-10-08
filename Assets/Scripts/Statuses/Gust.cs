@@ -11,6 +11,6 @@ public class Gust : Status
     public override void Apply(float statusEnd, Enemy statusTarget)
     {
         base.Apply(statusEnd, statusTarget);
-        target.gustEnd = Math.Max(target.gustEnd, statusEnd);
+        target.enemyStatuses.gustEnd = Math.Max(target.enemyStatuses.gustEnd, statusEnd);
     }
 }

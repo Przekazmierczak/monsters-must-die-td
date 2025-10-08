@@ -15,16 +15,16 @@ public class ChillFreeze : Status
     public override void Apply(float statusEnd, Enemy statusTarget)
     {
         base.Apply(statusEnd, statusTarget);
-        if (Time.time > target.frozen)
+        if (Time.time > target.enemyStatuses.frozen)
         {
-            target.chillSlowManager.chills.Insert(this, Time.time + duration);
-            target.chillSlowManager.chillCumulation += power;
+            target.enemyStatuses.chillSlowManager.chills.Insert(this, Time.time + duration);
+            target.enemyStatuses.chillSlowManager.chillCumulation += power;
 
-            if (target.chillSlowManager.chillCumulation >= 0.5 * target.maxHealth)
+            if (target.enemyStatuses.chillSlowManager.chillCumulation >= 0.5 * target.maxHealth)
             {
-                target.frozen = Time.time + freezDuration;
-                target.chillSlowManager.chills = new MaxHeap<ChillFreeze>();
-                target.chillSlowManager.chillCumulation = 0f;
+                target.enemyStatuses.frozen = Time.time + freezDuration;
+                target.enemyStatuses.chillSlowManager.chills = new MaxHeap<ChillFreeze>();
+                target.enemyStatuses.chillSlowManager.chillCumulation = 0f;
             }
         }
     }

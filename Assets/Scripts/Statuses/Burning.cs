@@ -13,10 +13,10 @@ public class Burning : Status
     public override void Apply(float statusEnd, Enemy statusTarget)
     {
         base.Apply(statusEnd, statusTarget);
-        if (target.burningPower <= power)
+        if (target.enemyStatuses.burningPower <= power)
         {
-            target.burningPower = power;
-            target.burningEnd = Time.time + duration;
+            target.enemyStatuses.burningPower = power;
+            target.enemyStatuses.burningEnd = Time.time + duration;
         }
     }
 }

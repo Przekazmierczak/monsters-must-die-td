@@ -11,9 +11,9 @@ public class Stun : Status
     {
         base.Apply(statusEnd, statusTarget);
         // target.statuses.Add(this);
-        if (target.stun < Time.time + duration)
+        if (target.enemyStatuses.stun < Time.time + duration)
         {
-            target.stun = Time.time + duration;
+            target.enemyStatuses.stun = Time.time + duration;
         }
     }
 }
