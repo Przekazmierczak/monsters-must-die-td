@@ -13,7 +13,7 @@ public class InventoryUI : MonoBehaviour
             if (slots[i].contain == null)
             {
                 slots[i].contain = card;
-                slots[i].UpdateImage();
+                slots[i].UpdateImage(false);
                 return 0;
             }
         }

@@ -13220,7 +13220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 44491062781437434, guid: 497699ede5349714faf1b00ad586db86, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13975,7 +13975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 44491062781437434, guid: 497699ede5349714faf1b00ad586db86, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22704,7 +22704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 44491062781437434, guid: 497699ede5349714faf1b00ad586db86, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22839,7 +22839,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 44491062781437434, guid: 497699ede5349714faf1b00ad586db86, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -27248,16 +27248,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
-  - {fileID: 2085084843}
-  - {fileID: 1467093943}
-  - {fileID: 342369504}
-  - {fileID: 1010896870}
-  - {fileID: 865272235}
-  - {fileID: 95996966}
-  - {fileID: 1294771635}
-  - {fileID: 1064699242}
-  - {fileID: 1645904106}
-  - {fileID: 238607500}
+  - {fileID: 2085084847}
+  - {fileID: 1467093947}
+  - {fileID: 342369508}
+  - {fileID: 1010896874}
+  - {fileID: 865272239}
+  - {fileID: 95996970}
+  - {fileID: 1294771639}
+  - {fileID: 1064699246}
+  - {fileID: 1645904110}
+  - {fileID: 238607504}
 --- !u!1 &1268617492
 GameObject:
   m_ObjectHideFlags: 0
@@ -32007,7 +32007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 44491062781437434, guid: 497699ede5349714faf1b00ad586db86, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -32381,6 +32381,7 @@ MonoBehaviour:
   - {fileID: 950989079}
   - {fileID: 603947667}
   cardList: {fileID: 632377544}
+  inventoryUI: {fileID: 1221443838}
 --- !u!1 &1969827598
 GameObject:
   m_ObjectHideFlags: 0

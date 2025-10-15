@@ -9,6 +9,7 @@ public class InventorySlotManager : MonoBehaviour
 
     // public CardPickerUI cardPickerUI;
     private Image cardImage;
+    public Sprite defaultSlotImage;
 
     void Awake()
     {
@@ -22,8 +23,15 @@ public class InventorySlotManager : MonoBehaviour
     //     cardPickerUI.OnCardSelected(contain);
     // }
 
-    public void UpdateImage()
+    public void UpdateImage(bool ifDrag)
     {
-        cardImage.sprite = contain.icon;
+        if (ifDrag == false)
+        {
+            cardImage.sprite = contain.icon;
+        }
+        else
+        {
+            cardImage.sprite = defaultSlotImage;
+        }
     }
 }

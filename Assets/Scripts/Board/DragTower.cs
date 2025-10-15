@@ -6,13 +6,8 @@ public class DragTower : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 {
     // [SerializeField] private Canvas canvas;
     public GameObject TowerIndicator;
-    private SquareIndicator squareIndicator;
+    public SquareIndicator squareIndicator;
     public GameObject SquareIndicat;
-
-    void Start()
-    {
-        squareIndicator = GetComponent<SquareIndicator>();
-    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
